@@ -1,0 +1,45 @@
+[project]
+name = "otel-trace-adapter"
+version = "0.1.0"
+description = "Create an Opentelemetry trace adapter for general use"
+authors = [
+    {name = "Ravi Parekh",email = "r.parekh90@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "blinker (==1.9.0)",
+    "click (==8.1.8)",
+    "deprecated (==1.2.18)",
+    "flask (==3.1.0)",
+    "googleapis-common-protos (==1.70.0)",
+    "grpcio (==1.71.0)",
+    "gunicorn (==23.0.0)",
+    "importlib-metadata (==8.6.1)",
+    "itsdangerous (==2.2.0)",
+    "jinja2 (==3.1.6)",
+    "markupsafe (==3.0.2)",
+    "opentelemetry-api (==1.32.1)",
+    "opentelemetry-exporter-jaeger-thrift (==1.21.0)",
+    "opentelemetry-exporter-otlp-proto-common (==1.32.1)",
+    "opentelemetry-exporter-otlp-proto-grpc (==1.32.1)",
+    "opentelemetry-exporter-prometheus (==0.53b1)",
+    "opentelemetry-proto (==1.32.1)",
+    "opentelemetry-sdk (==1.32.1)",
+    "opentelemetry-semantic-conventions (==0.53b1)",
+    "packaging (==24.2)",
+    "prometheus-client (==0.21.1)",
+    "protobuf (==5.29.4)",
+    "six (==1.17.0)",
+    "thrift (==0.21.0)",
+    "typing-extensions (==4.13.2)",
+    "werkzeug (==3.1.3)",
+    "wrapt (==1.17.2)",
+    "zipp (==3.21.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
