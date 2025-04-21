@@ -1,14 +1,15 @@
-from opentelemetry import trace, metrics
+import logging
+import time
+
+from opentelemetry import metrics, trace
+from opentelemetry.exporter.jaeger.thrift import JaegerExporter
+from opentelemetry.exporter.prometheus import PrometheusMetricReader
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.sdk.resources import Resource
 from opentelemetry.semconv.resource import ResourceAttributes
-from opentelemetry.exporter.jaeger.thrift import JaegerExporter
-from opentelemetry.sdk.metrics import MeterProvider
-from opentelemetry.exporter.prometheus import PrometheusMetricReader
 from prometheus_client import start_http_server
-import time
-import logging
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
