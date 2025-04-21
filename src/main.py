@@ -20,9 +20,7 @@ try:
     logger.info("Prometheus metrics server started on port 8000")
 
     # Create a shared resource for both traces and metrics
-    resource = Resource.create({
-        ResourceAttributes.SERVICE_NAME: "my-service"
-    })
+    resource = Resource.create({ResourceAttributes.SERVICE_NAME: "my-service"})
 
     # === TRACES SETUP ===
     # Configure the Jaeger exporter
@@ -45,7 +43,9 @@ try:
     prometheus_reader = PrometheusMetricReader()
 
     # Create a meter provider with Prometheus reader
-    meter_provider = MeterProvider(resource=resource, metric_readers=[prometheus_reader])
+    meter_provider = MeterProvider(
+        resource=resource, metric_readers=[prometheus_reader]
+    )
     metrics.set_meter_provider(meter_provider)
     meter = metrics.get_meter("my-service-meter")
 
@@ -53,13 +53,13 @@ try:
     request_counter = meter.create_counter(
         name="hello_requests_total",
         description="Total number of hello requests",
-        unit="1"
+        unit="1",
     )
 
     request_duration = meter.create_histogram(
         name="hello_duration_milliseconds",
         description="Duration of hello requests in milliseconds",
-        unit="ms"
+        unit="ms",
     )
 
     logger.info("OpenTelemetry setup complete")
@@ -67,19 +67,19 @@ try:
     def say_hello(name):
         # Start timing
         start_time = time.time()
-        
+
         # Increment the counter with attributes
         request_counter.add(1, {"name": name})
         logger.info(f"Incremented request counter for {name}")
-        
+
         with tracer.start_as_current_span("say_hello") as span:
             # Add attributes to the span
             span.set_attribute("name", name)
             print(f"Hello, {name}!")
-            
+
             with tracer.start_as_current_span("say_hello_to_someone"):
                 print(f"Hello, {name}!")
-        
+
         # Record the duration
         duration_ms = (time.time() - start_time) * 1000
         request_duration.record(duration_ms, {"name": name})
@@ -88,7 +88,7 @@ try:
     # Generate one request immediately to register metrics
     say_hello("OpenTelemetry-init")
     logger.info("Initial request generated to register metrics")
-    
+
     # Function to continuously generate traffic
     count = 0
     logger.info("Starting continuous traffic generation...")
@@ -102,4 +102,3 @@ except KeyboardInterrupt:
     logger.info("Application stopped by user")
 except Exception as e:
     logger.error(f"Error in application: {e}", exc_info=True)
-
